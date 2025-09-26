@@ -35,6 +35,19 @@ Users.push({
   
 })
 
+app.delete ("/deleteUser/:uid", (req, res) =>{
+  const id= parseInt(req.params.uid);
+  const found = Users.some(user => user.id === id);
+
+  if (found){ 
+    const updatedUser = Users.filter(user => user.id !==id)
+    res.status(200).json(updatedUser)
+  }else { 
+    res.status(400).json( "User not found");
+
+  }
+})
+
 app.listen(PORT, () => {
     console.log("server is running on port 3000 " )
 })
