@@ -48,6 +48,27 @@ app.delete ("/deleteUser/:uid", (req, res) =>{
   }
 })
 
+app.put ("/updateUser/:id", (req, res)=>{
+  const userId = parseInt(req.params.id);
+  const found = Users.some (user => user.id === userId);
+
+  if (found){
+    const updatedUser = req.body;
+    Users.forEach(user => { 
+         if ( user.id === userId){
+          user.name = updatedUser.name;
+          user.email = updatedUser.email;
+         }
+    })
+    res.status(200).json(Users);
+    
+  }else{
+    res.status(400).json("user not found!!")
+  }
+})
+
+
+
 app.listen(PORT, () => {
     console.log("server is running on port 3000 " )
 })
